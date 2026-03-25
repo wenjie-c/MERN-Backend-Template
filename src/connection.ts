@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import {config} from './config/config';
 
-mongoose.connect(config.mongo.url);
+mongoose.connect(config.mongo.url, {autoIndex:true});
 
 const cnx = mongoose.connection;
 cnx.on('connected',()=>{
