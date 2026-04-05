@@ -1,13 +1,15 @@
 import mongoose, { Schema, model, Types, Document, Mongoose } from "mongoose";
 import { IGroup } from "./group";
 
-export interface IUser extends Document {
+export interface IUser {
+  _id?: string
   name: string;
   email: string;
   password: string;
   group?: mongoose.Types.ObjectId | string;
   role: 'normal' | 'admin';
 }
+
 
 const UserSchema: Schema = new Schema(
   {
