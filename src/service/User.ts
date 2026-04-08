@@ -14,6 +14,10 @@ async function readUserById(id: string) : Promise<IUser |null> {
     return await User.findById(id);
 }
 
+async function readUserByEmail(theEmail: string) : Promise<IUser |null> {
+    return await User.findOne({email: theEmail});
+}
+
 async function readUser(data: any) : Promise<IUser[] | []> {
     return await User.find(data);
 }
@@ -22,7 +26,7 @@ async function readAllUsers() : Promise<IUser[] | []> {
     return await User.find();
 }
 
-async function updateUser(id:string, data: IUser): Promise<IUser | null> {
+async function updateUser(id:string, data: Partial<IUser>): Promise<IUser | null> {
     return await User.findByIdAndUpdate(id, data);
 }
 
@@ -30,4 +34,4 @@ async function deleteUser(id: string) : Promise<IUser | null> {
     return await User.findByIdAndDelete(id);
 }
 
-export default {createUser, readUserById, readUser, readAllUsers, updateUser, deleteUser};
+export default {createUser, readUserById, readUser, readUserByEmail, readAllUsers, updateUser, deleteUser};

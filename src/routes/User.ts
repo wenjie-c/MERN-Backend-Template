@@ -160,7 +160,7 @@ router.get('/', controller.readAllUsers);
  *       500:
  *         description: Something went wrong
  */
-router.put('/:userId', controller.updateUser);
+router.put('/:userId', ValidateSchema(Schemas.user.update),controller.updateUser);
 
 /**
  * @openapi

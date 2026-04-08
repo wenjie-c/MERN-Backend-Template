@@ -57,5 +57,9 @@ export const Schemas = {
             name: Joi.string().optional(),
             score: Joi.number().optional()
         })
-    }
+    },
+    signIn: Joi.object<IUser>({
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).required()
+    })
 }

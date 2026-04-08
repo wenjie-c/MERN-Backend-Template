@@ -9,6 +9,7 @@ import swaggerUi, {specs} from './swagger/swagger';
 import productRoutes from './routes/Product';
 import userRoutes from './routes/User';
 import groupRoutes from './routes/Group';
+import authRoutes from './routes/Authentication'
 import cnx from './connection';
 
 const router = express();
@@ -56,6 +57,8 @@ function startServer() : void{
     router.use('/v1',productRoutes);
     router.use('/user',userRoutes);
     router.use('/group', groupRoutes);
+    router.use('/auth', authRoutes);
+
 
     http.createServer(router).listen(config.server.port, ()=> {
         Logging.log(`Sever is running in http://localhost:${config.server.port}`);

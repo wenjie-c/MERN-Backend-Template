@@ -136,7 +136,7 @@ router.get('/', controller.readAllGroups);
  *       500:
  *         description: Something went wrong
  */
-router.put('/:groupId', controller.updateGroup);
+router.put('/:groupId',ValidateSchema(Schemas.group.update), controller.updateGroup);
 
 /**
  * @openapi

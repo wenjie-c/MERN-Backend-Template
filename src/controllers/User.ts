@@ -48,7 +48,7 @@ async function readAllUsers(req: Request, res: Response, next: NextFunction) {
 
 async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const data: IUser = {
+    const data = {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
