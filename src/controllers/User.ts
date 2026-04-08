@@ -1,7 +1,7 @@
 import Logging from "../library/Logging";
+import { NextFunction, Request, Response } from "express";
 import User, { IUser } from "../models/user";
 import UserService from "../service/User";
-import { NextFunction, Request, Response } from "express";
 
 async function createUser(req: Request, res: Response, next: NextFunction) {
   try {
@@ -24,7 +24,7 @@ async function createUser(req: Request, res: Response, next: NextFunction) {
 
 async function readUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const user = await UserService.readUserById(req.params.id as string);
+    const user = await UserService.readUserById(req.params.userId as string);
     if (user === null) return res.status(404);
     Logging.info(`Reading user: ${JSON.stringify(user)}`);
     return res.status(200).json(user);
@@ -55,7 +55,7 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
       group: req.body.group,
       role: req.body.role,
     };
-    const user = await UserService.updateUser(req.params.id as string, data);
+    const user = await UserService.updateUser(req.params.userId as string, data);
     return res.status(200).json(user);
   } catch (error) {
     Logging.error(error);
@@ -65,7 +65,7 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
 
 async function deleteUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const user = await UserService.deleteUser(req.params.id as string);
+    const user = await UserService.deleteUser(req.params.userId as string);
     return res.status(200).json(user);
   } catch (error) {
     Logging.error(error);

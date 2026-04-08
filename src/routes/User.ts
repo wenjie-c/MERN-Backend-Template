@@ -38,6 +38,29 @@ const router = express.Router();
  *           type: string
  *           description: User's role
  *           example: user/admin
+ *     CreateUpdateUser:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: User's name
+ *           example: Michael
+ *         email:
+ *           type: string
+ *           description: User's email
+ *           example: michael@gmail.com
+ *         password:
+ *           type: string
+ *           description: User's password
+ *           example: Example123
+ *         group:
+ *           type: string
+ *           description: User's group
+ *           example: USA
+ *         role:
+ *           type: string
+ *           description: User's role
+ *           example: user/admin
  */
 
 /**
@@ -51,7 +74,7 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/CreateUpdateUser'
  *     responses:
  *       201:
  *         description: Created
@@ -63,5 +86,108 @@ const router = express.Router();
  *         description: Something went wrong
  */
 router.post('/',ValidateSchema(Schemas.user.create), controller.createUser);
+
+/**
+ * @openapi
+ * /user/{userId}:
+ *   get:
+ *     summary: Get the user with that id.
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User's object id
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Not found.
+ *       500:
+ *         description: Something went wrong
+ * 
+ */
+router.get('/:userId', controller.readUser);
+
+/**
+ * @openapi
+ * /user:
+ *   get:
+ *     summary: Get all users.
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: OK
+ *       500:
+ *         description: Something went wrong
+ */
+router.get('/', controller.readAllUsers);
+
+/**
+ * @openapi
+ * /user/{userId}:
+ *   put:
+ *     summary: Update the user with that id.
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User's object id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateUpdateUser'
+ *     responses:
+ *       200:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Not found.
+ *       500:
+ *         description: Something went wrong
+ */
+router.put('/:userId', controller.updateUser);
+
+/**
+ * @openapi
+ * /user/{userId}:
+ *   delete:
+ *     summary: Delete the user with that id.
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User's object id
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Not found.
+ *       500:
+ *         description: Something went wrong
+ * 
+ */
+router.delete('/:userId', controller.deleteUser);
 
 export default router;
